@@ -1,0 +1,28 @@
+- hosts: fortidcrsd
+  collections:
+    - fortinet.fortios
+  connection: httpapi
+  gather_facts: false
+
+  vars:
+    vdom: "1-DC"
+    ansible_httpapi_use_ssl: yes
+    ansible_httpapi_validate_certs: no
+    ansible_httpapi_port: 8443
+
+    vlanid: "580"
+    vlanname: "VL580"
+    vlanalias: "580-GT-CLIENTS"
+    vlannetwork: "10.205.164"
+    zonename: "GT-CLIENTS"
+
+  tasks:
+
+  - name: get all
+    fortios_configuration_fact:
+      enable_log: true
+      vdom:  "{{ vdom }}"
+      access_token: "{{ fortios_access_token }}"
+      selector: system_zone
+
+

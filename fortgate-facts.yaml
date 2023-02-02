@@ -1,0 +1,29 @@
+---
+
+- hosts: forti_dc_rsd2
+  connection: httpapi
+  collections:
+    - fortinet.fortios
+  vars:
+    ansible_httpapi_use_ssl: yes
+    ansible_httpapi_validate_certs: no
+    ansible_httpapi_port: 8443
+    vdom: "root"
+  gather_facts: false
+
+  tasks:
+
+  - name: fact gathering
+    fortios_configuration_fact:
+        vdom: "root"
+        filters:
+            - name==port1
+            - vlanid==0
+        sorters:
+            - name,vlanid
+            - management-ip
+        formatters:
+         - name
+         - management-ip
+         - vlanid
+        selector: 'system_interface'

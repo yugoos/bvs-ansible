@@ -1,0 +1,8 @@
+---
+- hosts: switches
+  become: no
+
+  tasks:
+    - name: show version
+      cisco.ios.ios_command:
+        commands: show version
