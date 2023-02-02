@@ -14,7 +14,7 @@
     vlanname: "VL580"
     vlanalias: "580-GT-CLIENTS"
     vlannetwork: "10.205.164"
-    zonename: "GT-CLIENTS"
+    zonename: "GT-VDI"
 
   tasks:
   - name: Configure zones to group two or more interfaces.

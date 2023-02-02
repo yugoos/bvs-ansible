@@ -1,0 +1,69 @@
+- hosts: fortidcrsd
+  collections:
+    - fortinet.fortios
+  connection: httpapi
+  gather_facts: false
+  
+  vars:
+    vdom: '1-DC'
+    ansible_httpapi_use_ssl: yes
+    ansible_httpapi_validate_certs: no
+    ansible_httpapi_port: 8443
+   
+    vlanid: "582"
+    vlanname: "VL582"
+    vlanalias: "582-GT-VDI"
+    vlannetwork: "10.205.164"
+      
+  tasks:
+  - name: Configure interfaces.
+    fortios_system_interface:
+      vdom:  "{{ vdom }}"
+      state: "present"
+      access_token: "{{ fortios_access_token }}"
+      system_interface:
+        alias: "{{ vlanalias }}"
+        allowaccess: "ping"
+        auto_auth_extension_device: "disable"
+        color: "0"
+        dedicated_to: "none"
+        defaultgw: "enable"
+        description: ""
+        device_identification: "enable"
+        dhcp_relay_ip: ""
+        dhcp_relay_service: "disable"
+        dhcp_relay_type: "regular"
+        disc_retry_timeout: "1"
+        distance: "5"
+        dns_server_override: "enable"
+        egress_shaping_profile: ""
+        estimated_downstream_bandwidth: "0"
+        estimated_upstream_bandwidth: "0"
+        explicit_ftp_proxy: "enable"
+        explicit_web_proxy: "enable"
+        fortilink: "disable"
+        fortilink_split_interface: "disable"
+        idle_timeout: "0"
+        inbandwidth: "0"
+        interface: "LAG-DC"
+        internal: "0"
+        ip: "{{ vlannetwork }}.2/23"
+        lldp_reception: "vdom"
+        lldp_transmission: "vdom"
+        managed_subnetwork_size: "256"
+        mode: "static"
+        name: "{{ vlanname }}"
+        role: "lan"
+        status: "down"
+        type: "vlan"
+        vdom: "{{ vdom }}"
+        vlan_protocol: "8021q"
+        vlanid: "{{ vlanid }}"
+        vrrp:
+         -
+            preempt: "enable"
+            priority: "150"
+            vrgrp: "{{ vlanid }}"
+            vrip: "{{ vlannetwork }}.1"
+        vrrp_virtual_mac: "enable"
+
